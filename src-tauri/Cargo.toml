@@ -1,0 +1,46 @@
+[package]
+name = "bloxclient"
+version = "0.1.0"
+description = "An independent, privacy-first desktop client and launcher for Roblox"
+authors = ["Bud Inc."]
+edition = "2021"
+rust-version = "1.90"
+
+[lib]
+name = "bloxclient_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "s"
+panic = "abort"
+strip = true
+
+[dependencies]
+base64 = "0.23.1"
+getrandom = "0.4.3"
+log = "0.4.35"
+md-5 = "0.11.0"
+reqwest = { version = "0.13.5", default-features = false, features = ["native-tls"] }
+rusqlite = { version = "0.43", features = ["bundled"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+sha2 = "0.11.1"
+sysinfo = { version = "0.38.4", default-features = false, features = ["system"] }
+tauri = { version = "2.12", features = ["tray-icon"] }
+tauri-plugin-log = "2.10"
+tauri-plugin-opener = "2.7"
+tauri-plugin-single-instance = "2.5"
+thiserror = "2.0.21"
+tokio = { version = "1.54.1", default-features = false, features = ["macros", "time"] }
+uuid = { version = "1.29.3", features = ["v4"] }
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Security_WinTrust", "Win32_Security_Cryptography", "Win32_Security_Cryptography_Catalog", "Win32_Security_Cryptography_Sip", "Win32_Storage_FileSystem", "Win32_System_Performance", "Win32_UI_WindowsAndMessaging"] }
+winreg = "0.56.0"
+zip = { version = "9.8.2", default-features = false, features = ["deflate"] }
+
+[build-dependencies]
+tauri-build = { version = "2.7", features = [] }
+
+[dev-dependencies]
+ts-rs = "12.0.1"

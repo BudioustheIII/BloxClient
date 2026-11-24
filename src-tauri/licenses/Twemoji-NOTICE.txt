@@ -1,0 +1,7 @@
+Emoji graphics from Twemoji
+Copyright Twitter, Inc. and other contributors
+Graphics licensed under CC BY 4.0: https://creativecommons.org/licenses/by/4.0/
+
+Compiled font: twemoji-colr-font 15.0.3 (https://github.com/mrdrogdrog/twemoji-color-font)
+Font file licensed under the SIL Open Font License 1.1. See Twemoji-LICENSE.txt.
+Used unmodified. BloxClient is not affiliated with or endorsed by the Twemoji authors.

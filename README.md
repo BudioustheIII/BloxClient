@@ -1,5 +1,9 @@
 # BloxClient
 
+> [!WARNING]
+> The only official places to download BloxClient are this GitHub repository and the
+> [official website](https://budioustheiii.github.io/BloxClient/).
+
 BloxClient is an independent Windows app for finding, saving and launching Roblox games. Games
 open in the official Roblox Player. BloxClient never asks for your Roblox password or cookie,
 doesn't modify Roblox's files and doesn't inject code into the game.

@@ -1,0 +1,61 @@
+# Publishes the static website on the `website` branch to GitHub Pages.
+# There's no build step: the HTML, CSS, JavaScript and assets are deployed as they are.
+name: Deploy website
+
+on:
+  push:
+    branches:
+      - website
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time. A newer push waits instead of cancelling one in progress.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the website branch
+        uses: actions/checkout@v7
+        with:
+          # Always the website branch, also when the workflow is started by hand from another branch.
+          ref: website
+
+      - name: Check that the site's entry files exist
+        run: |
+          for file in index.html styles.css main.js assets/mercury.js; do
+            if [ ! -f "$file" ]; then
+              echo "::error file=$file::$file is missing from the website branch"
+              exit 1
+            fi
+          done
+
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+      - name: Report a failed deployment
+        if: failure()
+        run: |
+          echo "## Website deployment failed" >> "$GITHUB_STEP_SUMMARY"
+          echo "Check the failed step above. The previous version of the site stays online." >> "$GITHUB_STEP_SUMMARY"
+          exit 1

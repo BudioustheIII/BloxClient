@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BloxClient: browse and launch Roblox games from your desktop</title>
+    <meta
+      name="description"
+      content="BloxClient is an independent Windows app for finding, saving and launching Roblox games. It never asks for your password and opens games in the official Roblox Player."
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/fonts/bricolage-grotesque-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/hanken-grotesk-latin-wght.woff2" as="font" type="font/woff2" crossorigin />
+    <script>
+      // Entrance animations hide content until main.js runs. If it never does, show everything.
+      document.documentElement.classList.add("js");
+      setTimeout(function () {
+        if (!document.documentElement.classList.contains("ready")) document.documentElement.classList.remove("js");
+      }, 4000);
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="main.js" defer></script>
+    <script src="assets/mercury.js" id="mercury-script" defer></script>
+  </head>
+  <body>
+    <div class="backdrop" aria-hidden="true"></div>
+    <div class="backdrop-veil" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top">
+        <img src="assets/logo.svg" alt="" width="32" height="32" />
+        <span>BloxClient</span>
+      </a>
+      <nav aria-label="Main">
+        <a href="#features">Features</a>
+        <a href="#safety">Safety</a>
+        <a href="#questions">Questions</a>
+        <a href="https://github.com/BudioustheIII/BloxClient">GitHub</a>
+      </nav>
+      <a class="button button-small" href="assets/download/BloxClient_0.1.0_x64-setup.exe" download>Download</a>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <canvas class="live-gradient" data-mercury aria-hidden="true"></canvas>
+        <h1 data-split><span class="line">Skip the browser.</span> <span class="line">Go straight to the game.</span></h1>
+        <div class="hero-side">
+          <p data-reveal="up" style="--delay: 560ms">
+            BloxClient is a Windows app for finding, saving and launching Roblox games. Press Play and your game opens in
+            the official Roblox Player.
+          </p>
+          <a class="button" href="assets/download/BloxClient_0.1.0_x64-setup.exe" download data-reveal="zoom" style="--delay: 680ms">Download for Windows</a>
+          <p class="fine" data-reveal="up" style="--delay: 760ms">Version 0.1.0 for 64-bit Windows, 3 MB</p>
+        </div>
+
+        <figure class="viewer">
+          <div class="window" id="viewer-panel" role="tabpanel" aria-labelledby="tab-home" data-reveal="window" style="--delay: 520ms">
+            <img
+              id="viewer-image"
+              src="assets/screens/home-1200.jpg"
+              srcset="assets/screens/home-1200.jpg 1200w, assets/screens/home.jpg 2160w"
+              sizes="(min-width: 1360px) 1280px, 94vw"
+              width="2160"
+              height="1350"
+              alt="BloxClient Home, with a featured game and a Continue playing row"
+              fetchpriority="high"
+            />
+            <div class="hotspots" id="viewer-hotspots" aria-hidden="true"></div>
+          </div>
+          <figcaption data-reveal="up" style="--delay: 900ms">
+            <div class="tabs" role="tablist" aria-label="App screens">
+              <span class="tab-indicator" aria-hidden="true"></span>
+              <button type="button" role="tab" id="tab-home" aria-controls="viewer-panel" aria-selected="true" data-screen="home" data-alt="BloxClient Home, with a featured game and a Continue playing row" data-caption="Home puts a featured game, your recent games and your saved games on one page.">Home</button>
+              <button type="button" role="tab" id="tab-discover" aria-controls="viewer-panel" aria-selected="false" tabindex="-1" data-screen="discover" data-alt="Discover page with search, categories, genre filter and a grid of games" data-caption="Discover lets you search, browse categories, and filter by genre.">Discover</button>
+              <button type="button" role="tab" id="tab-library" aria-controls="viewer-panel" aria-selected="false" tabindex="-1" data-screen="library" data-alt="Library page with saved games, pinned games and custom collections" data-caption="Library keeps pinned games and your own collections together.">Library</button>
+              <button type="button" role="tab" id="tab-favorites" aria-controls="viewer-panel" aria-selected="false" tabindex="-1" data-screen="favorites" data-alt="Favorites page showing games saved on this PC" data-caption="Favorites are saved on your PC, with no sign-in needed.">Favorites</button>
+              <button type="button" role="tab" id="tab-friends" aria-controls="viewer-panel" aria-selected="false" tabindex="-1" data-screen="friends" data-alt="Friends page listing people, their status and the games they are playing" data-caption="Friends shows who's online and what they're playing, for people you add by username.">Friends</button>
+              <button type="button" role="tab" id="tab-performance" aria-controls="viewer-panel" aria-selected="false" tabindex="-1" data-screen="performance" data-alt="Performance page with live charts for CPU, GPU, memory and network" data-caption="Performance charts your PC while you play, without touching the game.">Performance</button>
+              <button type="button" role="tab" id="tab-accounts" aria-controls="viewer-panel" aria-selected="false" tabindex="-1" data-screen="accounts" data-alt="Accounts page with local profiles based on public usernames" data-caption="Accounts holds local profiles. Roblox sign-in isn't available yet.">Accounts</button>
+              <button type="button" role="tab" id="tab-settings" aria-controls="viewer-panel" aria-selected="false" tabindex="-1" data-screen="settings-appearance" data-alt="Appearance settings with theme, accent color, sidebar, scale and animation options" data-caption="Settings covers themes, accent colors, Roblox versions and FFlags.">Settings</button>
+            </div>
+            <p id="viewer-caption" aria-live="polite">Home puts a featured game, your recent games and your saved games on one page.</p>
+          </figcaption>
+        </figure>
+        <p class="fine viewer-note" data-reveal="up" style="--delay: 1000ms">Preview images use made-up games and players.</p>
+      </section>
+
+      <div id="features">
+        <section class="feature">
+          <div class="feature-text" data-stagger>
+            <h2 data-reveal="up">Pick up where you left off</h2>
+            <p data-reveal="up">
+              Continue playing lists your recent games, including ones you started outside BloxClient. One press and
+              you're back in.
+            </p>
+          </div>
+          <div class="shot" data-reveal="right">
+            <img src="assets/screens/experience-1200.jpg" srcset="assets/screens/experience-1200.jpg 1200w, assets/screens/experience.jpg 2160w" sizes="(min-width: 961px) 620px, 100vw" width="2160" height="1350" loading="lazy" alt="A game's detail page with Play, Favorite, Pin and Collections buttons" />
+          </div>
+        </section>
+
+        <section class="feature feature-flip">
+          <div class="feature-text" data-stagger>
+            <h2 data-reveal="up">Keep your games in order</h2>
+            <p data-reveal="up">
+              Pin the ones you play most and sort the rest into collections like "Weekend worlds". Your library stays on
+              your PC.
+            </p>
+          </div>
+          <div class="shot" data-reveal="left">
+            <img src="assets/screens/library-1200.jpg" srcset="assets/screens/library-1200.jpg 1200w, assets/screens/library.jpg 2160w" sizes="(min-width: 961px) 620px, 100vw" width="2160" height="1350" loading="lazy" alt="Library with pinned games and two custom collections" />
+          </div>
+        </section>
+
+        <section class="feature">
+          <div class="feature-text" data-stagger>
+            <h2 data-reveal="up">See how your PC is coping</h2>
+            <p data-reveal="up">
+              Watch CPU, GPU, memory, Roblox's memory use and network speed live. The readings come from Windows, so
+              BloxClient never touches the game.
+            </p>
+          </div>
+          <div class="shot" data-reveal="right">
+            <img src="assets/screens/performance-1200.jpg" srcset="assets/screens/performance-1200.jpg 1200w, assets/screens/performance.jpg 2160w" sizes="(min-width: 961px) 620px, 100vw" width="2160" height="1350" loading="lazy" alt="Performance charts for CPU, GPU, memory, Roblox memory, download and upload" />
+          </div>
+        </section>
+
+        <section class="tinker">
+          <div class="tinker-text" data-stagger>
+            <h2 data-reveal="up">Room to tinker</h2>
+            <p data-reveal="up">
+              Install a specific Roblox version from Roblox's own servers, with every file checked. Build FFlag profiles
+              with backups, and get a warning when Roblox is likely to ignore a flag.
+            </p>
+          </div>
+          <div class="tinker-shots" data-stagger>
+            <div class="shot" data-reveal="left">
+              <img src="assets/screens/settings-roblox-1200.jpg" srcset="assets/screens/settings-roblox-1200.jpg 1200w, assets/screens/settings-roblox.jpg 2160w" sizes="(min-width: 961px) 530px, 100vw" width="2160" height="1350" loading="lazy" alt="Roblox settings listing installed versions with Launch and Remove buttons" />
+            </div>
+            <div class="shot" data-reveal="right">
+              <img src="assets/screens/settings-fflags-1200.jpg" srcset="assets/screens/settings-fflags-1200.jpg 1200w, assets/screens/settings-fflags.jpg 2160w" sizes="(min-width: 961px) 530px, 100vw" width="2160" height="1350" loading="lazy" alt="FFlag editor with a profile, toggles and a warning on an unlisted flag" />
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <section class="safety" id="safety">
+        <h2 data-reveal="left">Your account stays yours</h2>
+        <ul data-stagger>
+          <li data-reveal="up">
+            <h3>No password, no cookie</h3>
+            <p>BloxClient never asks for your Roblox password or your .ROBLOSECURITY cookie. If any app does, don't paste it.</p>
+          </li>
+          <li data-reveal="up">
+            <h3>No changes to Roblox</h3>
+            <p>It doesn't modify Roblox's files or change the versions Roblox installed.</p>
+          </li>
+          <li data-reveal="up">
+            <h3>No injection</h3>
+            <p>It doesn't inject code into the game or interfere with Roblox's anti-cheat.</p>
+          </li>
+          <li data-reveal="up">
+            <h3>Official Player</h3>
+            <p>Games open through the Roblox Player on your PC, the same way they do from the website.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="questions" id="questions">
+        <h2 data-reveal="left">Questions</h2>
+        <div class="faq" data-stagger>
+          <details data-reveal="up">
+            <summary>Is BloxClient made by Roblox?</summary>
+            <p>No. BloxClient is an independent app and isn't affiliated with or endorsed by Roblox Corporation.</p>
+          </details>
+          <details data-reveal="up">
+            <summary>Why does Windows show a security warning?</summary>
+            <p>The installer isn't code-signed yet, so Windows may warn you that the publisher is unknown. Only download BloxClient from this site.</p>
+          </details>
+          <details data-reveal="up">
+            <summary>Can I sign in with my Roblox account?</summary>
+            <p>Not yet. That means account favorites, your real friends list and account switching aren't available. You can still add people by username and save favorites on your PC.</p>
+          </details>
+          <details data-reveal="up">
+            <summary>Does it show in-game FPS?</summary>
+            <p>No. Measuring FPS would mean touching the game process, and BloxClient doesn't do that.</p>
+          </details>
+          <details data-reveal="up">
+            <summary>Do FFlags always work?</summary>
+            <p>No. Roblox only applies flags on its allowlist and ignores the rest. BloxClient marks flags from the list Roblox published, but can't promise a flag still works.</p>
+          </details>
+          <details data-reveal="up">
+            <summary>Does it update itself?</summary>
+            <p>Not yet. For now, install new versions manually.</p>
+          </details>
+          <details data-reveal="up">
+            <summary>What do I need to run it?</summary>
+            <p>A 64-bit Windows PC with the Roblox Player installed.</p>
+          </details>
+        </div>
+      </section>
+
+      <section class="download" id="download" data-stagger>
+        <canvas class="live-gradient" data-mercury aria-hidden="true"></canvas>
+        <h2 class="metal" data-reveal="up">Get BloxClient for Windows</h2>
+        <div class="actions" data-reveal="zoom">
+          <a class="button" href="assets/download/BloxClient_0.1.0_x64-setup.exe" download>Download version 0.1.0</a>
+          <a class="button button-ghost" href="https://github.com/BudioustheIII/BloxClient">View source on GitHub</a>
+        </div>
+        <p data-reveal="up">
+          For 64-bit Windows, 3 MB. The installer isn't code-signed yet, so Windows may show a security warning. Choose
+          More info, then Run anyway.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer" data-stagger>
+      <div class="brand" data-reveal="up">
+        <img src="assets/logo.svg" alt="" width="24" height="24" />
+        <span>BloxClient</span>
+      </div>
+      <p data-reveal="up">
+        BloxClient is an independent app by Bud Inc. It isn't affiliated with or endorsed by Roblox Corporation. Roblox is
+        a trademark of Roblox Corporation. The animated background is the Mercury gradient from
+        <a href="https://gradients.sh">gradients.sh</a>. Source code is on
+        <a href="https://github.com/BudioustheIII/BloxClient">GitHub</a>.
+      </p>
+    </footer>
+  </body>
+</html>

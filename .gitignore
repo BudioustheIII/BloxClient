@@ -12,4 +12,4 @@ originalprompt.txt
 # The website lives on the separate `website` branch, checked out in this folder.
 website/
 docs/
-scripts/
+

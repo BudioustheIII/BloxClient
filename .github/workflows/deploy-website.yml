@@ -19,12 +19,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Deploy to GitHub Pages
+  # Packages the site. Deploying in a separate job gives GitHub time to register
+  # the uploaded package, which a single job can look for too early.
+  package:
+    name: Package the site
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out the website branch
         uses: actions/checkout@v7
@@ -49,6 +48,14 @@ jobs:
         with:
           path: .
 
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: package
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v5
@@ -58,4 +65,5 @@ jobs:
         run: |
           echo "## Website deployment failed" >> "$GITHUB_STEP_SUMMARY"
           echo "Check the failed step above. The previous version of the site stays online." >> "$GITHUB_STEP_SUMMARY"
+          echo "To retry, start a new run instead of re-running this one, which would find two site packages." >> "$GITHUB_STEP_SUMMARY"
           exit 1
